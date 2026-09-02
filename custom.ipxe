@@ -12,6 +12,12 @@ choose custom_choice || goto custom_exit
 goto ${custom_choice}
 
 :kubuntu_2610
+iseq ${platform} efi && goto kubuntu_2610_efi || goto kubuntu_2610_bios
+
+:kubuntu_2610_efi
+sanboot --no-describe https://cdimage.ubuntu.com/kubuntu/releases/26.10/release/snapshot-2/kubuntu-26.10-snapshot2-desktop-amd64.iso || goto custom_exit
+
+:kubuntu_2610_bios
 kernel https://boot.netboot.xyz/memdisk raw iso
 initrd https://cdimage.ubuntu.com/kubuntu/releases/26.10/release/snapshot-2/kubuntu-26.10-snapshot2-desktop-amd64.iso
 boot || goto custom_exit
