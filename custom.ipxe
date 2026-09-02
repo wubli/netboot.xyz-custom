@@ -3,10 +3,18 @@
 ### netboot.xyz-custom menu
 ###
 
-:start
-echo Hello world!
-sleep 10
-goto custom_exit
+:custom
+clear custom_choice
+menu Custom netboot.xyz menu
+item --gap Linux distributions
+item kubuntu_2610 ${space} Kubuntu 26.10 (Stonking Stingray) snapshot-2 desktop amd64
+choose custom_choice || goto custom_exit
+goto ${custom_choice}
+
+:kubuntu_2610
+kernel https://boot.netboot.xyz/memdisk raw iso
+initrd https://cdimage.ubuntu.com/kubuntu/releases/26.10/release/snapshot-2/kubuntu-26.10-snapshot2-desktop-amd64.iso
+boot || goto custom_exit
 
 :custom_exit
 exit 0
